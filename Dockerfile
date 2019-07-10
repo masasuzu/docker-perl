@@ -5,6 +5,12 @@ RUN apt-get update && apt-get install -y build-essential curl mysql-client libmy
 
 RUN curl https://raw.githubusercontent.com/tagomoris/xbuild/master/perl-install --output perl-install && bash perl-install 5.18.2 /usr/local/perl/perl-5.18/
 
+ENV DOCKERIZE_VERSION v0.6.1
+RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz --output dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+
 RUN apt-get clean && apt-get autoclean
 
 CMD ["/usr/local/perl/perl-5.18/bin/perl", "-v"]
